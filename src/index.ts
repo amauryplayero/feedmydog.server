@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors'; 
-import {getStream, getComments, postComment} from './controller'
+import {getStream, getComments, postComment, moveServo} from './controller'
 
 const app = express();
 const server = http.createServer(app);
@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 app.post('/comments', postComment)
 app.get('/comments', getComments)
 app.get('/stream', getStream)
+app.get('/move-servo', moveServo)
 
 
 

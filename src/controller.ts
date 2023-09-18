@@ -46,6 +46,15 @@ const getStream = (req:any, res:any) =>{
         raspPiResponse.body.pipe(res);
         });
 }
+const moveServo = (req:any, res:Response) =>{
+    // put this in the env
+    const url = "http://141.149.53.230:8000/move-servo"
+    fetch(url)
+    .then(raspPiResponse => {
+        // Pipe the response from Raspberry Pi to the client
+        res.status(200).send(raspPiResponse.body);
+        });
+}
 
 const getComments = (req:Request, res:Response) =>{
     sequelize.query(`
@@ -76,5 +85,7 @@ const postComment = (req:CommentReq, res:Response) =>{
 export {
     getStream,
     getComments,
-    postComment
+    postComment,
+    moveServo
+
 }
