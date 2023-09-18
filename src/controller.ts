@@ -5,7 +5,7 @@ import fetch, { Request as RequestFetch } from 'node-fetch'
 
 dotenv.config({path: '.env'});
 const DATABASE_URL:string = process.env.DATABASE_URL;
-console.log(DATABASE_URL)
+// console.log(DATABASE_URL)
 
 interface CommentReq extends Request {
     name:string,
