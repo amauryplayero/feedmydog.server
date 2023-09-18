@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors'; 
-import {getStream, getComments} from './controller'
+import {getStream, getComments, postComment} from './controller'
 
 const app = express();
 const server = http.createServer(app);
@@ -13,8 +13,9 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
-app.post('/comments', getComments)
-app.get('/getStream', getStream)
+app.post('/comments', postComment)
+app.get('/comments', getComments)
+app.get('/stream', getStream)
 
 
 
