@@ -4,8 +4,10 @@ import dotenv from 'dotenv'
 import fetch, { Request as RequestFetch } from 'node-fetch'
 
 dotenv.config({path: '.env'});
-const DATABASE_URL:string = process.env.DATABASE_URL;
-console.log(DATABASE_URL)
+let DATABASE_URL:string = process.env.DATABASE_URL;
+if(!DATABASE_URL){
+    DATABASE_URL = 'temporary_id'
+}
 
 interface CommentReq extends Request {
     name:string,
