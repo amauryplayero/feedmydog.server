@@ -62,7 +62,7 @@ const getComments = (req:Request, res:Response) =>{
     `)
     .then((dbRes:any[]) => 
         {
-            // console.log(JSON.stringify(dbRes))
+            console.log('sent comments')
         res.status(200).send(dbRes[0]);   
     })
 }
