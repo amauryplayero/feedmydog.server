@@ -5,7 +5,7 @@ import fetch, { Request as RequestFetch } from 'node-fetch'
 
 dotenv.config({path: '.env'});
 const DATABASE_URL:string = process.env.DATABASE_URL;
-// console.log(DATABASE_URL)
+const STREAM_URL:string = process.env.STREAM_URL;
 
 interface CommentReq extends Request {
     name:string,
@@ -20,7 +20,7 @@ const sequelize = new Sequelize(DATABASE_URL,{
     dialect: 'postgres', 
     dialectOptions: {
         ssl: {   
-            rejectUnauthorized: true
+            rejectUnauthorized:false
         }
     },
   
@@ -38,7 +38,7 @@ interface IdbRes {
 
 const getStream = (req:any, res:any) =>{
     // put this in the env
-    const url = "http://141.149.53.230:8000/stream.mjpg"
+    const url = `http://${STREAM_URL}:8000/stream.mjpg`
     fetch(url)
     .then(raspPiResponse => {
         // Pipe the response from Raspberry Pi to the client
@@ -48,7 +48,7 @@ const getStream = (req:any, res:any) =>{
 }
 const moveServo = (req:any, res:Response) =>{
     // put this in the env
-    const url = "http://141.149.53.230:8000/move-servo"
+    const url = `http://${STREAM_URL}:8000/move-servo`
     fetch(url)
     .then(raspPiResponse => {
         // Pipe the response from Raspberry Pi to the client
@@ -69,8 +69,7 @@ const getComments = (req:Request, res:Response) =>{
 
 const postComment = (req:CommentReq, res:Response) =>{
 
-    const {name, content} = req;
-
+    const {name, content} = req.body;
     sequelize.query(`
     INSERT INTO comments (name, content, date)
     VALUES('${name}','${content}', current_timestamp);
