@@ -44,7 +44,8 @@ const getStream = (req:any, res:any) =>{
         // Pipe the response from Raspberry Pi to the client
         res.setHeader('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME');
         raspPiResponse.body.pipe(res);
-        });
+        })
+    .catch((err)=>console.log(err));
 }
 const moveServo = (req:any, res:Response) =>{
     // put this in the env
