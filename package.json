@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nvm use 18.17.1 && npx tsc && node dist/index.js",
+    "start": "npx tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
