@@ -1,5 +1,6 @@
 import express from 'express';
 import http from 'http';
+import fs from 'fs'
 import https from 'https'
 import bodyParser from 'body-parser';
 import cors from 'cors'; 
@@ -7,7 +8,6 @@ import {getStream, getComments, postComment, moveServo, isItFeedingTime} from '.
 
 const app = express();
 const port = 3001;
-const fs = require('fs');
 const https_options = {
  ca: fs.readFileSync("_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.cer"),
  key: fs.readFileSync("_.feedmydogservice.com_private_key.key"),
