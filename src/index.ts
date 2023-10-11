@@ -1,12 +1,18 @@
 import express from 'express';
 import http from 'http';
+import https from 'https'
 import bodyParser from 'body-parser';
 import cors from 'cors'; 
 import {getStream, getComments, postComment, moveServo, isItFeedingTime} from './controller'
 
 const app = express();
-const server = http.createServer(app);
 const port = 3001;
+const fs = require('fs');
+const https_options = {
+ ca: fs.readFileSync("_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.cer"),
+ key: fs.readFileSync("_.feedmydogservice.com_private_key.key"),
+ cert: fs.readFileSync("feedmydogservice.com_ssl_certificate.cer")
+};
 
 app.use(cors()); 
 app.use(bodyParser.json());
@@ -22,6 +28,9 @@ app.get('/feeding-time', isItFeedingTime)
 
 
 
-server.listen(port, () => {
+https.createServer(https_options, function (req, res) {
+  res.writeHead(200);
+  res.end("Welcome to Node.js HTTPS Server")})
+  .listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
 });
