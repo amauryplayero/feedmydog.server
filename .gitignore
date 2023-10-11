@@ -9,6 +9,8 @@ lib-cov
 *.pid
 *.gz
 *.swp
+*.key
+*.cer
 
 pids
 logs

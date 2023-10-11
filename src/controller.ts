@@ -83,10 +83,26 @@ const postComment = (req:CommentReq, res:Response) =>{
     })
 }
 
+const isItFeedingTime = ():Promise<boolean> =>{
+    const date = new Date();
+    const offset = -300; //Timezone offset for EST in minutes.
+    const estDate = new Date(date.getTime() + offset*60*1000);
+    console.log(estDate); //Gives Mon Mar 21 2016 23:00:00 GMT+0530 (IST)
+    const response = new Promise<boolean>((resolve, reject)=>{
+        const itIsTime = true
+        if(itIsTime){
+            resolve(true)
+        }else{
+            reject(false)
+        }
+    })
+    return response
+}
+
 export {
     getStream,
     getComments,
     postComment,
-    moveServo
-
+    moveServo,
+    isItFeedingTime
 }
