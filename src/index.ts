@@ -7,7 +7,7 @@ import cors from 'cors';
 import {getStream, getComments, postComment, moveServo, isItFeedingTime} from './controller'
 
 const app = express();
-const port = 3001;
+const port = 443;
 const https_options = {
  ca: fs.readFileSync("_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.cer"),
  key: fs.readFileSync("_.feedmydogservice.com_private_key.key"),
