@@ -9,9 +9,9 @@ import {getStream, getComments, postComment, moveServo, isItFeedingTime} from '.
 const app = express();
 const port = 443;
 const https_options = {
- ca: fs.readFileSync("_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.cer"),
- key: fs.readFileSync("_.feedmydogservice.com_private_key.key"),
- cert: fs.readFileSync("feedmydogservice.com_ssl_certificate.cer")
+ ca: fs.readFileSync("_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.cer", "utf8"),
+ key: fs.readFileSync("_.feedmydogservice.com_private_key.key", "utf8"),
+ cert: fs.readFileSync("feedmydogservice.com_ssl_certificate.cer", "utf8")
 };
 
 app.use(cors()); 
@@ -32,5 +32,5 @@ https.createServer(https_options, function (req, res) {
   res.writeHead(200);
   res.end("Welcome to Node.js HTTPS Server")})
   .listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+  return console.log(`Express is listening at https://localhost:${port}`);
 });
