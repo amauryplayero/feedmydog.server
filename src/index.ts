@@ -13,8 +13,8 @@ const port = 443;
 
 const https_options = {
  ca: fs.readFileSync(path.resolve('/_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.pem')),
- key: fs.readFileSync(path.resolve('/feedmydog.server/_.feedmydogservice.com_private_key.pem"')),
- cert: fs.readFileSync(path.resolve('/feedmydog.server/feedmydogservice.com_ssl_certificate.pem"')),
+ key: fs.readFileSync(path.resolve('/_.feedmydogservice.com_private_key.pem"')),
+ cert: fs.readFileSync(path.resolve('/feedmydogservice.com_ssl_certificate.pem"')),
 };
 
 app.use(cors()); 
