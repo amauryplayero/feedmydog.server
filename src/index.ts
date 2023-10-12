@@ -9,9 +9,9 @@ import {getStream, getComments, postComment, moveServo, isItFeedingTime} from '.
 const app = express();
 const port = 443;
 const https_options = {
- ca: fs.readFileSync("feedmydog.server/_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.pem"),
- key: fs.readFileSync("feedmydog.server/_.feedmydogservice.com_private_key.pem"),
- cert: fs.readFileSync("feedmydog.server/feedmydogservice.com_ssl_certificate.pem"),
+ ca: fs.readFileSync("/feedmydog.server/_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.pem"),
+ key: fs.readFileSync("/feedmydog.server/_.feedmydogservice.com_private_key.pem"),
+ cert: fs.readFileSync("/feedmydog.server/feedmydogservice.com_ssl_certificate.pem"),
 };
 
 app.use(cors()); 
