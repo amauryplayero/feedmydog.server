@@ -3,6 +3,7 @@ import { Sequelize,  } from 'sequelize'
 import dotenv from 'dotenv'
 import fetch, { Request as RequestFetch } from 'node-fetch'
 
+
 dotenv.config({path: '.env'});
 const DATABASE_URL:string = process.env.DATABASE_URL;
 const STREAM_URL:string = process.env.STREAM_URL;
