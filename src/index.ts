@@ -8,9 +8,8 @@ import {getStream, getComments, postComment, moveServo, isItFeedingTime} from '.
 
 
 const app = express();
-const port = 443;
+const port = 3001;
 
-console.log(path.resolve('_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.pem'))
 const https_options = {
  ca: fs.readFileSync(path.resolve('_.feedmydogservice.com_ssl_certificate_INTERMEDIATE.pem')),
  key: fs.readFileSync(path.resolve('_.feedmydogservice.com_private_key.pem')),
