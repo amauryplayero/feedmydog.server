@@ -40,7 +40,7 @@ interface IdbRes {
 const getStream = (req:any, res:any) =>{
     // put this in the env
     const url = `http://${STREAM_URL}:8000/stream.mjpg`
-    console.log('starting fetch')
+    console.log('sending stream')
     fetch(url)
     .then(raspPiResponse => {
         // Pipe the response from Raspberry Pi to the client

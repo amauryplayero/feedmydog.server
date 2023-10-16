@@ -17,7 +17,7 @@ const https_options = {
 };
 
 app.use(cors({
-  origin: 'https://feedmydog.vercel.app'
+  origin: ['https://www.feedmydog.vercel.app', 'https://feedmydog.vercel.app', 'https://www.feedmydog.vercel.app:3001', 'https://feedmydog.vercel.app:3001']
 })); 
 app.use(bodyParser.json());
 app.get('/', (req, res) => {
