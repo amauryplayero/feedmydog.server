@@ -13,9 +13,6 @@ interface CommentReq extends Request {
     content: string
 }
 
-// interface DatabaseType {
-//     DATABASE_URL?:string
-// }
 
 const sequelize = new Sequelize(DATABASE_URL,{
     dialect: 'postgres', 
@@ -37,20 +34,19 @@ interface IdbRes {
 }
 
 
-const getStream = (req:any, res:any) =>{
-    // put this in the env
+const getStream = async (req:any, res:Response, next:any) =>{
     const url = `http://${STREAM_URL}:8000/stream.mjpg`
     console.log('sending stream')
     fetch(url)
     .then(raspPiResponse => {
         // Pipe the response from Raspberry Pi to the client
         res.setHeader('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME');
-        raspPiResponse.body.pipe(res);
+        return raspPiResponse.body.pipe(res);
         })
-    .catch((err)=>console.log(err));
+    .catch((err)=>res.status(400).send(err))
+    
 }
 const moveServo = (req:any, res:Response) =>{
-    // put this in the env
     const url = `http://${STREAM_URL}:8000/move-servo`
     fetch(url)
     .then(raspPiResponse => {
@@ -73,31 +69,27 @@ const getComments = (req:Request, res:Response) =>{
 const postComment = (req:CommentReq, res:Response) =>{
 
     const {name, content} = req.body;
+    const date = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'})
+    console.log(date)
     sequelize.query(`
     INSERT INTO comments (name, content, date)
-    VALUES('${name}','${content}', current_timestamp);
+    VALUES('${name}','${content}', '${date}');
     `)
     .then((dbRes:any[]) => 
         {
-            // console.log(JSON.stringify(dbRes))
         res.status(200).send(dbRes[0]);   
     })
 }
 
-const isItFeedingTime = ():Promise<boolean> =>{
-    const date = new Date();
-    const offset = -300; //Timezone offset for EST in minutes.
-    const estDate = new Date(date.getTime() + offset*60*1000);
-    console.log(estDate); //Gives Mon Mar 21 2016 23:00:00 GMT+0530 (IST)
-    const response = new Promise<boolean>((resolve, reject)=>{
-        const itIsTime = true
-        if(itIsTime){
-            resolve(true)
-        }else{
-            reject(false)
-        }
+
+const lastTimePattyAte = (req:Request, res:Response) =>{
+    sequelize.query(`
+    SELECT * from comments 
+    ORDER BY comment_id DESC
+    LIMIT 1;
+    `).then((dbRes:any[])=>{
+        res.status(200).send(dbRes[0][0].date); 
     })
-    return response
 }
 
 export {
@@ -105,5 +97,5 @@ export {
     getComments,
     postComment,
     moveServo,
-    isItFeedingTime
+    lastTimePattyAte,
 }
