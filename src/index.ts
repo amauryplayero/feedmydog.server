@@ -18,7 +18,7 @@ const https_options = process.env.ENVIRONMENT === 'dev' ? null : {
  cert: fs.readFileSync(path.resolve('feedmydogservice.com_ssl_certificate.pem')),
 };
 
-if(process.env.ENVIRONMENT !== 'dev'){
+if(process.env.ENVIRONMENT !== 'dev' || process.env.ENVIRONMENT === undefined){
   app.use(cors({
     origin: ['https://www.feedmydog.vercel.app', 'https://feedmydog.vercel.app', 'https://www.feedmydog.vercel.app:3001', 'https://feedmydog.vercel.app:3001']
   })); 
@@ -41,10 +41,12 @@ app.get('/lastTimePattyAte', lastTimePattyAte)
 
 
 if( process.env.ENVIRONMENT !== 'dev' || process.env.ENVIRONMENT === undefined){
+  console.log('starting https')
   https.createServer(https_options, app).listen(port, () => {
   return console.log(`Express is listening at https://localhost:${port}`)}
   );
 }else{
+  console.log('starting http')
   server.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
   });
