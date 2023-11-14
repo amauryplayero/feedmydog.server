@@ -70,11 +70,10 @@ const postComment = (req:CommentReq, res:Response) =>{
 
     const {name, content} = req.body;
     const date = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'})
-    console.log(date)
     sequelize.query(`
     INSERT INTO comments (name, content, date)
-    VALUES('${name}','${content}', '${date}');
-    `)
+    VALUES(:name, :content, :date);
+    `, { replacements: { name:name, content:content, date:date } , raw: true, type: 'POST'})
     .then((dbRes:any[]) => 
         {
         res.status(200).send(dbRes[0]);   
